@@ -103,40 +103,13 @@ namespace UnityChan
 			//	current = Mathf.Lerp (current, 0, delayWeight);
 			//}
 
-			if (Input.GetKeyDown (eyeClose)) {
-
-				anim.CrossFade ("eye_close@unitychan", 0);
-
-			}
-
-			if (Input.GetKeyDown (KeyCode.Keypad1)) {
-
-				anim.CrossFade ("eye_close@unitychan", 0);
-
-			}
-
-			if (Input.GetKeyDown (KeyCode.Keypad2)) {
-
-				anim.CrossFade ("smile1@unitychan", 0);
-
-			}
-
-			if (Input.GetKeyDown (KeyCode.Keypad3)) {
-
-				anim.CrossFade ("angry1@unitychan", 0);
-
-			}
-
-			if (Input.GetKeyDown (KeyCode.F)) {
-
-				anim.CrossFade ("MTH_A", 0);
-
-			}
 
 			if (Input.anyKeyDown) {
 
 				current = 1;
+
 			} else if (!isKeepFace) {
+				
 				current = Mathf.Lerp (current, 0, delayWeight);
 			}
 
