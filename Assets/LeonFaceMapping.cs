@@ -7,7 +7,7 @@ using System;
 public class LeonFaceMapping : MonoBehaviour {
 
 
-	public enum players {unitychan_player_1, unitychan_player_2};
+	public enum players {unitychan_player_1, unitychan_player_2, player_0};
 	public players matchedPlayer;
 
 	private UnityChan.LeonFaceController conPlayer;
@@ -49,7 +49,7 @@ public class LeonFaceMapping : MonoBehaviour {
 			if (Input.GetKey (vKey)) {
 				Debug.Log (vKey); 
 				keyOrder = Array.IndexOf (faces, vKey);
-				Debug.Log (keyOrder);
+				//Debug.Log (keyOrder);
 
 				if (keyOrder < 0) return;
 
