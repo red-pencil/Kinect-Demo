@@ -28,7 +28,7 @@ namespace UnityChan
 		private LeonGesture gestureInfo;
 		public bool _realBackgroundON;
 
-		public string[] faceMapping = new string[10];
+		//public string[] faceMapping = new string[10];
 
 		public KeyCode smile;
 		public KeyCode angry;
@@ -66,19 +66,26 @@ namespace UnityChan
 			// levelMax equals to the highest normalized value power 2, a small number because < 1
 			// pass the value to a static var so we can access it from anywhere
 			MicLoudness = LevelMax ();
+			Debug.Log (MicLoudness);
 
-			if (MicLoudness > -80)
-				_isSpeaking = true;
-			else
-				_isSpeaking = false;
+			//if (MicLoudness > -80)
+			//	_isSpeaking = true;
+			//else
+			//	_isSpeaking = false;
+
+			if (MicLoudness > -80) anim.CrossFade ("MTH_E", 0);
+			else if (MicLoudness > -50 || MicLoudness < -80) anim.CrossFade ("MTH_O", 0);
+
+			if (MicLoudness > -80) current = 1;
+
 
 			//Debug.Log (_isSpeaking);
 
-			if (_isSpeaking) {
+			//if (_isSpeaking) {
 				//anim.CrossFade ("MTH_O", 0);
-			}
+			//}
 				
-			if (Input.GetKey (KeyCode.KeypadEnter)) {
+			if (Input.GetKey (KeyCode.KeypadEnter) || Input.GetKey (KeyCode.Space)) {
 				isKeepFace = true;
 			} else {
 				isKeepFace = false;
@@ -103,6 +110,9 @@ namespace UnityChan
 			//	current = Mathf.Lerp (current, 0, delayWeight);
 			//}
 
+			if (Input.GetKeyDown (eyeClose)) anim.CrossFade ("eye_close@unitychan", 0);
+			else if (Input.GetKeyDown (smile)) anim.CrossFade ("smile1@unitychan", 0);
+			else if (Input.GetKeyDown (angry)) anim.CrossFade ("angry1@unitychan", 0);
 
 			if (Input.anyKeyDown) {
 

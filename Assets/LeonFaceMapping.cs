@@ -7,7 +7,7 @@ using System;
 public class LeonFaceMapping : MonoBehaviour {
 
 
-	public enum players {unitychan_player_1, unitychan_player_2, player_0};
+	public enum players {unitychan_player_1, unitychan_player_2, player_1, player_2};
 	public players matchedPlayer;
 
 	private UnityChan.LeonFaceController conPlayer;
