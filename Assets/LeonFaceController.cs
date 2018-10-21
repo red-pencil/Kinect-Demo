@@ -18,10 +18,6 @@ namespace UnityChan
 
 		// custom keys
 
-		public enum faceFuncs {eye_close_unitychan, smile1_unitychan, smile2_unitychan};
-
-		public faceFuncs faceX;
-
 		private AutoBlink autoBlinkInfo;
 		public bool _autoBlinkON;
 
@@ -90,7 +86,7 @@ namespace UnityChan
 						anim.CrossFade ("MTH_A", 0);
 						Debug.Log ("Loudly");
 					}
-					current = 1;
+					current = 0.5f;
 				}
 
 				anim.SetLayerWeight (1, current);
