@@ -24,7 +24,6 @@ namespace UnityChan
 		private LeonGesture gestureInfo;
 		public bool _realBackgroundON;
 
-		private OVRLipSyncMicInput mouthSyncInfo;
 		//public string[] faceMapping = new string[10];
 
 		public KeyCode smile;
@@ -37,7 +36,6 @@ namespace UnityChan
 			anim = GetComponent<Animator> ();
 			autoBlinkInfo = GetComponent<AutoBlink> ();
 			gestureInfo = GameObject.Find ("EventSystem").GetComponent<LeonGesture> ();
-			mouthSyncInfo = GetComponent<OVRLipSyncMicInput> ();
 
 		}
 
@@ -67,17 +65,33 @@ namespace UnityChan
 			// pass the value to a static var so we can access it from anywhere
 
 
+			//if (MicLoudness > -80)
+			//	_isSpeaking = true;
+			//else
+			//	_isSpeaking = false;
+
+			if (Input.GetKeyDown (KeyCode.KeypadPeriod)) _speakMode = !_speakMode;
+			
+			if (_speakMode) {
+
 				current = 0;
-				//MicLoudness = LevelMax ();
+				MicLoudness = LevelMax ();
 				//Debug.Log (MicLoudness);
 
-			//if (MicLoudness > -50) {
+				if (MicLoudness > -80)
+				{
+					Debug.Log ("Speaking");
+					anim.CrossFade ("MTH_U", 0);
+					if (MicLoudness > -50 || MicLoudness < -80) {
+						anim.CrossFade ("MTH_A", 0);
+						Debug.Log ("Loudly");
+					}
+					current = 0.5f;
+				}
 
-			//	_speakMode = true;
-
-			//} else {
-			//	_speakMode = false;
-			//}
+				anim.SetLayerWeight (1, current);
+				return;
+			}
 				
 
 			if (Input.GetKeyDown (KeyCode.KeypadMultiply)) {
@@ -92,7 +106,7 @@ namespace UnityChan
 				//anim.CrossFade ("MTH_O", 0);
 			//}
 				
-			if (Input.GetKeyDown (KeyCode.KeypadPeriod))
+			if (Input.GetKeyDown (KeyCode.KeypadDivide))
 				_longPress = !_longPress;
 
 			if (_longPress) {
@@ -105,14 +119,15 @@ namespace UnityChan
 
 			} else {
 				
-				if (Input.GetKeyDown (KeyCode.KeypadPlus))
+				if (Input.GetKeyDown (KeyCode.KeypadMultiply))
 					isKeepFace = !isKeepFace;
 
 			}
 
 
-			if (Input.GetKeyDown (KeyCode.KeypadMultiply)) _autoBlinkON = !_autoBlinkON;
-			if (Input.GetKeyDown (KeyCode.KeypadMinus)) _realBackgroundON = !_realBackgroundON;
+
+			if (Input.GetKeyDown (KeyCode.KeypadMinus)) _autoBlinkON = !_autoBlinkON;
+			if (Input.GetKeyDown (KeyCode.KeypadPlus)) _realBackgroundON = !_realBackgroundON;
 
 			autoBlinkInfo.isActive = _autoBlinkON;
 			gestureInfo.realScene.SetActive (_realBackgroundON);
@@ -224,11 +239,11 @@ namespace UnityChan
             _isInitialized=true;
         }
 
-		//void OnGUI ()
-		//{
-		//	Rect rect1 = new Rect (10, Screen.height - 40, 400, 30);
-		//	_speakMode = GUI.Toggle (rect1, _speakMode, "Speaking Mode");
-		//}
+		void OnGUI ()
+		{
+			Rect rect1 = new Rect (10, Screen.height - 40, 400, 30);
+			_speakMode = GUI.Toggle (rect1, _speakMode, "Speaking Mode");
+		}
 
 
 	}

@@ -116,7 +116,7 @@ public class OVRLipSyncContextMorphTarget : MonoBehaviour
     /// <summary>
     /// Update this instance.
     /// </summary>
-    void Update ()
+    void LateUpdate ()
     {
         if((lipsyncContext != null) && (skinnedMeshRenderer != null))
         {
@@ -163,8 +163,12 @@ public class OVRLipSyncContextMorphTarget : MonoBehaviour
     {
         for (int i = 0; i < visemeToBlendTargets.Length; i++)
         {
-            if (visemeToBlendTargets[i] != -1)
+            //leon if (visemeToBlendTargets[i] != -1)
+			if (visemeToBlendTargets[i] != -1)
             {
+				// leon add
+				if (visemeToBlendTargets[i] >10) return;
+
                 // Viseme blend weights are in range of 0->1.0, we need to make range 100
                 skinnedMeshRenderer.SetBlendShapeWeight(
                     visemeToBlendTargets[i],
@@ -187,6 +191,9 @@ public class OVRLipSyncContextMorphTarget : MonoBehaviour
             laughterScore = laughterScore < laughterThreshold ? 0.0f : laughterScore - laughterThreshold;
             laughterScore = Mathf.Min(laughterScore * laughterMultiplier, 1.0f);
             laughterScore *= 1.0f / laughterThreshold;
+
+			// leon add
+			if ( laughterBlendTarget >10) return;
 
             skinnedMeshRenderer.SetBlendShapeWeight(
                 laughterBlendTarget,
